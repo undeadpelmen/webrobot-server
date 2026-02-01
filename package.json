@@ -1,0 +1,26 @@
+{
+  "name": "webrobot-server",
+  "version": "0.0.1",
+  "description": "Back-end server for webrobot project",
+  "homepage": "https://github.com/undeadpelmen/webrobot-server#readme",
+  "bugs": {
+    "url": "https://github.com/undeadpelmen/webrobot-server/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/undeadpelmen/webrobot-server.git"
+  },
+  "license": "MIT",
+  "author": "undeadpelmen",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^1.13.4",
+    "express": "^5.2.1",
+    "ws": "^8.19.0"
+  }
+}
