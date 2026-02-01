@@ -1,3 +1,5 @@
+// import {logger} from "../../config.js";
+
 let websocketMap = new Map()
 
 const WebsocketService = {
@@ -7,7 +9,15 @@ const WebsocketService = {
 
     getRobotById: (id) => {
         return websocketMap.get(id)
-    }
+    },
+
+    deleteRobotById(id) {
+        return websocketMap.delete(id)
+    },
+
+    getAllRobots: () => {
+        return websocketMap
+    },
 }
 
 export default WebsocketService
