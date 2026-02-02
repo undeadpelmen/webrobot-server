@@ -1,12 +1,12 @@
 import express from "express";
 import {logger} from "../../config.js";
-import WebsocketService from "./../service/websocketService.js";
+import RobotService from "../service/RobotService.js";
 
 
 const adminRouter = express.Router();
 
 adminRouter.get("/robot/connected", async (req, res) => {
-    const map = WebsocketService.getAllRobots()
+    const map = RobotService.getAllRobots()
 
     map.forEach((robot, id, mp) => {
         mp.set(id, {status: robot.status});

@@ -1,5 +1,5 @@
-import WebsocketService from "../service/websocketService.js";
-import websocketService from "../service/websocketService.js";
+import RobotService from "../service/RobotService.js";
+import websocketService from "../service/RobotService.js";
 import {logger} from "../../config.js";
 
 /*
@@ -34,7 +34,7 @@ const HandleFunc = (ws) => {
 
             switch (data.type) {
                 case "syn":
-                    const id = WebsocketService.addRobot( ws, data.status)
+                    const id = RobotService.addRobot( ws, data.status)
 
                     ws.send(JSON.stringify({
                         type: "ack",

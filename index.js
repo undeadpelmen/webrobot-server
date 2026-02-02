@@ -4,7 +4,7 @@ import * as http from "node:http";
 import config, {logger} from './config.js'
 import handleFunc from "./src/controller/websocketController.js"
 import adminRouter from "./src/controller/AdminController.js"
-import commandRouter from "./src/controller/CommandController.js"
+import commandRouter from "./src/controller/RobotController.js"
 
 const app = express()
 
