@@ -2,13 +2,30 @@ import WebsocketService from "../service/websocketService.js";
 import websocketService from "../service/websocketService.js";
 import {logger} from "../../config.js";
 
+/*
+ROBOT DTO
+{
+    "type": type of message (syn, status, error)
+    "id": robot's id
+    "status" current robot status
+    "msg": message or error from robot
+}
+
+SERVER DTO
+{
+    "type": type of message (ack, response, command, offsig)
+    "status": success or error
+    "msg": message or error
+}
+ */
+
 const HandleFunc = (ws) => {
     ws.on("error", (err) => {
-        console.error(err)
+        logger.error(err)
     })
 
     ws.on("close", () => {
-        console.log("WebSocket closed")
+        logger.info("websocket closed")
     })
 
     ws.on("message", (msg) => {
@@ -16,12 +33,13 @@ const HandleFunc = (ws) => {
             let data = JSON.parse(msg.toString())
 
             switch (data.type) {
-                case "init":
-                    WebsocketService.addRobot(1, ws, data.status)
+                case "syn":
+                    const id = WebsocketService.addRobot( ws, data.status)
 
                     ws.send(JSON.stringify({
+                        type: "ack",
                         status: "success",
-                        id: 1,
+                        id: id,
                     }))
 
                     logger.info("connect new robot")
@@ -35,7 +53,7 @@ const HandleFunc = (ws) => {
 
                         ws.send(JSON.stringify({
                             status: "error",
-                            error: "unrecognized robot",
+                            msg: "unrecognized robot",
                         }))
 
                         return
@@ -52,16 +70,16 @@ const HandleFunc = (ws) => {
 
                     break
                 case "error":
-                    logger.error(`robot error: ${data.error}`)
+                    logger.error(`robot error: ${data.msg}`)
                     break
             }
         } catch (e) {
             ws.send(JSON.stringify({
                 status: "error",
-                error: e
+                msg: e
             }))
 
-            console.error(e)
+            logger.error(`Unhandled error: ${e}`)
         }
     })
 }

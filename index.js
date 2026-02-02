@@ -3,7 +3,8 @@ import {WebSocketServer} from 'ws'
 import * as http from "node:http";
 import config, {logger} from './config.js'
 import handleFunc from "./src/controller/websocketController.js"
-import adminRouter from "./src/controller/admin.js"
+import adminRouter from "./src/controller/AdminController.js"
+import commandRouter from "./src/controller/CommandController.js"
 
 const app = express()
 
@@ -18,6 +19,8 @@ app.get("/ping", (req, res) => {
 })
 
 app.use("/admin", adminRouter)
+
+app.use("/robot", commandRouter)
 
 wss.on("connection", handleFunc)
 
